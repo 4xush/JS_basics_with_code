@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript DOM Events Examples</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      section {
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      h1 {
+        border-bottom: 2px solid #333;
+        padding-bottom: 10px;
+      }
+      h2 {
+        color: #333;
+      }
+      button {
+        padding: 8px 12px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 5px 0;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .output {
+        background-color: #f9f9f9;
+        padding: 10px;
+        border: 1px solid #ddd;
+        margin-top: 10px;
+        min-height: 20px;
+      }
+      #bubble-parent,
+      #capture-parent {
+        padding: 25px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+      }
+      #bubble-child,
+      #capture-child {
+        padding: 15px;
+        background-color: #e0e0e0;
+        border: 1px solid #bbb;
+      }
+      #delegation-list li {
+        padding: 8px;
+        margin: 5px 0;
+        background-color: #f0f0f0;
+        cursor: pointer;
+      }
+      #delegation-list li:hover {
+        background-color: #e0e0e0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JavaScript DOM Events Examples</h1>
+
+    <section>
+      <h2>1. Basic Event Handling</h2>
+      <button id="basic-button">Click Me</button>
+      <div id="basic-output" class="output"></div>
+      <pre><code>
+button.addEventListener('click', function() {
+    console.log('Button was clicked!');
+});
+        </code></pre>
+    </section>
+
+    <section>
+      <h2>2. Event Object Properties</h2>
+      <button id="event-info-button">Show Event Info</button>
+      <div id="event-info-output" class="output"></div>
+      <pre><code>
+button.addEventListener('click', function(event) {
+    console.log('Event object:', event);
+    // Access properties like event.type, event.target, etc.
+});
+        </code></pre>
+    </section>
+
+    <section>
+      <h2>3. Event Bubbling</h2>
+      <p>Click the child button and watch the event bubble up to the parent</p>
+      <div id="bubble-parent">
+        Parent Element
+        <button id="bubble-child">Child Button</button>
+      </div>
+      <div id="bubble-output" class="output"></div>
+      <pre><code>
+child.addEventListener('click', function(event) {
+    console.log('Child clicked!');
+    // Uncomment to stop bubbling:
+    // event.stopPropagation();
+});
+
+parent.addEventListener('click', function(event) {
+    console.log('Parent clicked!');
+});
+        </code></pre>
+    </section>
+
+    <section>
+      <h2>4. Event Capturing</h2>
+      <p>The parent captures the event before it reaches the child</p>
+      <div id="capture-parent">
+        Parent Element
+        <button id="capture-child">Child Button</button>
+      </div>
+      <div id="capture-output" class="output"></div>
+      <pre><code>
+parent.addEventListener('click', function(event) {
+    console.log('Parent captured!');
+}, true); // true enables capturing phase
+
+child.addEventListener('click', function(event) {
+    console.log('Child clicked!');
+});
+        </code></pre>
+    </section>
+
+    <section>
+      <h2>5. Event Delegation</h2>
+      <p>Click on any list item:</p>
+      <ul id="delegation-list">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+      </ul>
+      <div id="delegation-output" class="output"></div>
+      <pre><code>
+list.addEventListener('click', function(event) {
+    // Check if a list item was clicked
+    if (event.target.tagName === 'LI') {
+        console.log('List item clicked:', event.target.textContent);
+    }
+});
+        </code></pre>
+    </section>
+
+    <section>
+      <h2>6. Prevent Default Behavior</h2>
+      <p>This link doesn't navigate:</p>
+      <a href="https://example.com" id="prevent-default-link"
+        >Try to click this link</a
+      >
+      <div id="prevent-default-output" class="output"></div>
+      <pre><code>
+link.addEventListener('click', function(event) {
+    event.preventDefault();
+    console.log('Default link behavior prevented');
+});
+        </code></pre>
+    </section>
+
+    <section>
+      <h2>7. Custom Events</h2>
+      <div id="custom-event-target">
+        Target element for custom event
+        <button id="custom-event-button">Dispatch Custom Event</button>
+      </div>
+      <div id="custom-event-output" class="output"></div>
+      <pre><code>
+// Listen for custom event
+element.addEventListener('awesome', function(event) {
+    console.log('Custom event data:', event.detail);
+});
+
+// Create and dispatch custom event
+const customEvent = new CustomEvent('awesome', {
+    bubbles: true,
+    detail: { message: 'This is a custom event!' }
+});
+element.dispatchEvent(customEvent);
+        </code></pre>
+    </section>
+
+    <script src="event_examples.js"></script>
+  </body>
+</html>

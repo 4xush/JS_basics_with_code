@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Event Propagation Demo</title>
+    <style>
+      .container {
+        padding: 20px;
+        background-color: #f0f0f0;
+        border: 2px solid #333;
+        margin: 20px;
+      }
+
+      .parent {
+        padding: 20px;
+        background-color: #e0e0e0;
+        border: 2px solid #666;
+      }
+
+      .child {
+        padding: 20px;
+        background-color: #d0d0d0;
+        border: 2px solid #999;
+      }
+
+      .log {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        min-height: 100px;
+      }
+
+      button {
+        padding: 10px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Event Propagation Demo</h2>
+
+    <!-- First example: Without stopPropagation -->
+    <div class="container" id="example1">
+      <h3>Without stopPropagation()</h3>
+      <div class="parent" id="parent1">
+        Parent
+        <div class="child" id="child1">
+          Child
+          <button id="button1">Click Me!</button>
+        </div>
+      </div>
+      <div class="log" id="log1">Event log will appear here...</div>
+    </div>
+
+    <!-- Second example: With stopPropagation -->
+    <div class="container" id="example2">
+      <h3>With stopPropagation()</h3>
+      <div class="parent" id="parent2">
+        Parent
+        <div class="child" id="child2">
+          Child
+          <button id="button2">Click Me!</button>
+        </div>
+      </div>
+      <div class="log" id="log2">Event log will appear here...</div>
+    </div>
+
+    <script>
+      // Helper function to log events
+      function logEvent(logElement, message) {
+        logElement.innerHTML += message + "<br>";
+      }
+
+      // Clear logs when clicking on log areas
+      document.getElementById("log1").addEventListener("click", function () {
+        this.innerHTML = "Event log will appear here...";
+      });
+      document.getElementById("log2").addEventListener("click", function () {
+        this.innerHTML = "Event log will appear here...";
+      });
+
+      // Example 1: Without stopPropagation
+      const button1 = document.getElementById("button1");
+      const child1 = document.getElementById("child1");
+      const parent1 = document.getElementById("parent1");
+      const log1 = document.getElementById("log1");
+
+      button1.addEventListener("click", function (e) {
+        logEvent(log1, "1. Button clicked!");
+      });
+
+      child1.addEventListener("click", function (e) {
+        logEvent(log1, "2. Child div clicked!");
+      });
+
+      parent1.addEventListener("click", function (e) {
+        logEvent(log1, "3. Parent div clicked!");
+      });
+
+      // Example 2: With stopPropagation
+      const button2 = document.getElementById("button2");
+      const child2 = document.getElementById("child2");
+      const parent2 = document.getElementById("parent2");
+      const log2 = document.getElementById("log2");
+
+      button2.addEventListener("click", function (e) {
+        e.stopPropagation(); // Stop the event from bubbling up
+        logEvent(log2, "1. Button clicked! (Propagation stopped here)");
+      });
+
+      child2.addEventListener("click", function (e) {
+        logEvent(log2, "2. Child div clicked!");
+      });
+
+      parent2.addEventListener("click", function (e) {
+        logEvent(log2, "3. Parent div clicked!");
+      });
+    </script>
+  </body>
+</html>
