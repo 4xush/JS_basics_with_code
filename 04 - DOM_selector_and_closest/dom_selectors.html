@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Selectors Demo</title>
+    <style>
+      .highlight {
+        background-color: yellow;
+      }
+      .selected {
+        font-weight: bold;
+      }
+      .demo-box {
+        border: 1px solid #ccc;
+        margin: 10px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main-container">
+      <h1 class="title">DOM Selectors Demo</h1>
+
+      <div class="demo-box">
+        <h3>Text Elements Demo</h3>
+        <div class="section">
+          <p class="text">First paragraph</p>
+          <p class="text highlight">Second paragraph (highlighted)</p>
+          <p class="text">Third paragraph</p>
+        </div>
+      </div>
+
+      <div class="demo-box">
+        <h3>List Items Demo</h3>
+        <ul id="list">
+          <li data-id="1">Item 1</li>
+          <li data-id="2" class="selected">Item 2 (selected)</li>
+          <li data-id="3">Item 3</li>
+        </ul>
+      </div>
+
+      <div class="demo-box">
+        <h3>Form Elements Demo</h3>
+        <form name="myForm">
+          <div>
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" />
+          </div>
+          <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" />
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="dom_selectors.js"></script>
+  </body>
+</html>
