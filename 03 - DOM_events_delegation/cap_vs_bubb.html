@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Capturing vs Bubbling Demo</title>
+    <style>
+      .section {
+        border: 2px solid black;
+        padding: 20px;
+        margin: 20px;
+      }
+
+      .outer {
+        background: lightblue;
+        padding: 20px;
+      }
+
+      .inner {
+        background: lightgreen;
+        padding: 20px;
+      }
+
+      button {
+        padding: 10px;
+        margin-top: 10px;
+      }
+
+      .log {
+        background: #f4f4f4;
+        border: 1px solid #ccc;
+        margin-top: 15px;
+        padding: 10px;
+        font-family: monospace;
+        max-height: 150px;
+        overflow-y: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Section 1: Capturing -->
+    <div class="section" id="capture-section">
+      <h2>Section A: Capturing (useCapture = true)</h2>
+      <div class="outer">
+        Outer Div
+        <div class="inner">
+          Inner Div
+          <button id="capture-btn">Click Me (Capturing)</button>
+        </div>
+      </div>
+      <div class="log" id="capture-log">Logs:</div>
+    </div>
+
+    <!-- Section 2: Bubbling -->
+    <div class="section" id="bubble-section">
+      <h2>Section B: Bubbling (useCapture = false)</h2>
+      <div class="outer">
+        Outer Div
+        <div class="inner">
+          Inner Div
+          <button id="bubble-btn">Click Me (Bubbling)</button>
+        </div>
+      </div>
+      <div class="log" id="bubble-log">Logs:</div>
+    </div>
+
+    <script>
+      // Utility function to print logs both in console + UI
+      function logMessage(sectionLog, msg) {
+        console.log(msg);
+        const logDiv = document.getElementById(sectionLog);
+        const p = document.createElement("p");
+        p.textContent = msg;
+        logDiv.appendChild(p);
+      }
+
+      // -------- SECTION A (Capturing) --------
+      const captureSection = document.querySelector("#capture-section");
+
+      captureSection
+        .querySelector(".outer")
+        .addEventListener(
+          "click",
+          () => logMessage("capture-log", "A: OUTER (capturing)"),
+          true
+        );
+
+      captureSection
+        .querySelector(".inner")
+        .addEventListener(
+          "click",
+          () => logMessage("capture-log", "A: INNER (capturing)"),
+          true
+        );
+
+      captureSection
+        .querySelector("button")
+        .addEventListener(
+          "click",
+          () => logMessage("capture-log", "A: BUTTON (target)"),
+          true
+        );
+
+      // -------- SECTION B (Bubbling) --------
+      const bubbleSection = document.querySelector("#bubble-section");
+
+      bubbleSection
+        .querySelector(".outer")
+        .addEventListener(
+          "click",
+          () => logMessage("bubble-log", "B: OUTER (bubbling)"),
+          false
+        );
+
+      bubbleSection
+        .querySelector(".inner")
+        .addEventListener(
+          "click",
+          () => logMessage("bubble-log", "B: INNER (bubbling)"),
+          false
+        );
+
+      bubbleSection
+        .querySelector("button")
+        .addEventListener(
+          "click",
+          () => logMessage("bubble-log", "B: BUTTON (target)"),
+          false
+        );
+    </script>
+  </body>
+</html>
