@@ -1,0 +1,22 @@
+<div id="demo">
+  Visible Text
+  <span style="display:none;"> + Hidden Text : textContent = what’s actually in the DOM, even if hidden by css property.</span>
+</div>
+
+<button onclick="showInnerText()">Show innerText</button>
+<button onclick="showTextContent()">Show textContent</button>
+
+<p id="output"></p>
+
+<script>
+  const demo = document.getElementById("demo");
+  const output = document.getElementById("output");
+
+  function showInnerText() {
+    output.textContent = "innerText → " + demo.innerText;
+  }
+
+  function showTextContent() {
+    output.textContent = "textContent → " + demo.textContent;
+  }
+</script>
