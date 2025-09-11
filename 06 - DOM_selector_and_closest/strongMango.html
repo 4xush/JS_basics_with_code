@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+  <body>
+    <div>
+      <ul id="fruits">
+        <li>Mango</li>
+        <li>Oranges</li>
+        <li>Guava</li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    let mango = document.querySelector("li"); // it will select the first li element
+    // let mango = document.querySelectorAll("li"); // it will select all the li elements as Nodelist
+    // console.log(mango);
+    console.log(mango.closest("ul")); // it will select the closest ul element of the mango element
+
+    // mango.addEventListener("click", function(){
+    //     alert("You clicked on Mango");
+    // })
+
+    let ul = document.getElementById("fruits");
+    ul.addEventListener(
+      "click",
+      function (e) {
+        let clickedItem = e.target;
+        let closestLi = clickedItem.closest("li");
+        if (closestLi) {
+          console.log("You clicked on " + closestLi.innerText);
+        }
+      },
+      false
+    );
+  </script>
+</head>
