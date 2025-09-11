@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debouncing Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+
+      .container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-container {
+        margin: 20px 0;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .events-log {
+        height: 200px;
+        overflow-y: auto;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+      }
+
+      .explanation {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #e9f5ff;
+        border-radius: 4px;
+      }
+
+      .event-item {
+        margin: 5px 0;
+        padding: 5px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .normal {
+        color: #666;
+      }
+
+      .debounced {
+        color: #2196f3;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Debouncing in Action</h1>
+
+      <div class="explanation">
+        <h3>What is Debouncing?</h3>
+        <p>
+          Debouncing is a programming pattern that delays the execution of a
+          function until after a certain amount of time has passed since its
+          last invocation.
+        </p>
+        <p>In this example:</p>
+        <ul>
+          <li>Type in the search box below</li>
+          <li>Every keystroke triggers a normal event (gray)</li>
+          <li>
+            Debounced events (blue) only trigger after you stop typing for 500ms
+          </li>
+        </ul>
+      </div>
+
+      <div class="search-container">
+        <h3>Search Input</h3>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Start typing to see debouncing in action..."
+        />
+        <div class="events-log" id="eventsLog"></div>
+      </div>
+    </div>
+
+    <script>
+      // Debounce function implementation
+      function debounce(func, delay) {
+        let timeoutId;
+
+        return function (...args) {
+          // Clear previous timeout
+          if (timeoutId) {
+            clearTimeout(timeoutId);
+          }
+
+          // Set new timeout
+          timeoutId = setTimeout(() => {
+            func.apply(this, args);
+          }, delay);
+        };
+      }
+
+      // Function to log events
+      function logEvent(message, isDebounced = false) {
+        const eventsLog = document.getElementById("eventsLog");
+        const eventDiv = document.createElement("div");
+        eventDiv.className = `event-item ${
+          isDebounced ? "debounced" : "normal"
+        }`;
+        eventDiv.textContent = `${message} - ${new Date().toLocaleTimeString()}`;
+        eventsLog.insertBefore(eventDiv, eventsLog.firstChild);
+      }
+
+      // Normal handler - logs every keystroke
+      function handleInput(event) {
+        logEvent(`Input value: ${event.target.value}`);
+      }
+
+      // Debounced handler - logs after delay
+      const handleDebouncedInput = debounce((value) => {
+        logEvent(`Debounced value: ${value}`, true);
+      }, 500);
+
+      // Set up event listeners
+      const searchInput = document.getElementById("searchInput");
+      searchInput.addEventListener("input", (e) => {
+        handleInput(e); // Log immediate event
+        handleDebouncedInput(e.target.value); // Log debounced event
+      });
+
+      // Initial log message
+      logEvent(
+        "Ready - Start typing to see the difference between normal and debounced events"
+      );
+    </script>
+  </body>
+</html>
