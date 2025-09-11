@@ -19,7 +19,7 @@ print(console.log);
 
 console.log("passing custom callback to print function:");
 // Here, we call print and pass our own custom callback function
-print((data)=>{
+print((data)=>{   // we are not passing data variable , it is created by print function and passed to this callback function
     console.log(data + " from custom callback");
 });
 
