@@ -1,6 +1,25 @@
 # Template Literals in JavaScript
 
-Template literals (also called template strings) are a powerful feature introduced in ES6 (ECMAScript 2015) that provides an improved way to work with strings in JavaScript.
+Template literals (also called template strings) are a powerful feature introduced in ES6 that provides a more flexible and powerful way to work with strings compared to traditional string literals.
+
+( ES6, short for ECMAScript 6, is the official 2015 standard for JavaScript, introducing significant new features like arrow functions, let and const for variable declaration, template literals, classes, modules, and other improvements to make JavaScript code more concise and powerful.)
+
+
+Basic advantage of template literls - 
+
+1. Multiline Strings:
+
+without the need for special escape characters like \n. 
+
+Example : 
+const multilineString = `This is a string
+that spans multiple lines.`;
+console.log(multilineString);
+
+
+2. String Interpolation:
+achieved using the ${expression} syntax.
+Example : `Hello, ${name}! You are ${age} years old.`;
 
 ## Key Features
 
